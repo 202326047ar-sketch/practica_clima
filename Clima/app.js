@@ -11,7 +11,7 @@ function obtenerUbicacion() {
       errorUbicacion
     );
   } else {
-    resultado.innerHTML = "❌ Geolocalización no compatible en este navegador.";
+    resultado.innerHTML = "❌ Geolocalización no compatible.";
   }
 }
 
@@ -21,15 +21,10 @@ function posicionCorrecta(posicion) {
   obtenerClima(lat, lon);
 }
 
-/*
-  🔴 IMPORTANTE:
-  Si el navegador BLOQUEA la ubicación (por usar HTTP),
-  se ejecuta esta función y usamos una ubicación por defecto.
-*/
 function errorUbicacion() {
   resultado.innerHTML = "⚠️ Permiso de ubicación denegado.<br>Mostrando clima de ubicación por defecto (CDMX).";
 
-  // Coordenadas de Ciudad de México
+  // Coordenadas Ciudad de México
   const lat = 19.4326;
   const lon = -99.1332;
 
@@ -37,7 +32,6 @@ function errorUbicacion() {
 }
 
 function obtenerClima(lat, lon) {
-  // ✅ TU API KEY REAL DE WEATHERAPI
   const apiKey = "db3296e7d7dd4cd5a2140246263003";
 
   const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}&lang=es`;
@@ -45,14 +39,13 @@ function obtenerClima(lat, lon) {
   fetch(url)
     .then(response => {
       if (!response.ok) {
-        throw new Error("Respuesta incorrecta de la API");
+        throw new Error("Error en la API");
       }
       return response.json();
     })
     .then(data => mostrarClima(data))
-    .catch(error => {
+    .catch(() => {
       resultado.innerHTML = "❌ Error al obtener datos del clima.";
-      console.error(error);
     });
 }
 
