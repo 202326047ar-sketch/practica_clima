@@ -32,7 +32,7 @@ function errorUbicacion() {
 }
 
 function obtenerClima(lat, lon) {
-  const apiKey = "db3296e7d7dd4cd5a2140246263003";
+  const apiKey = "TU_APIKEY";
 
   const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}&lang=es`;
 
